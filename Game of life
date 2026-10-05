@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>In-Silico Stem Cell Colony Simulator</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 20px; }
+        h1 { margin-bottom: 5px; color: #000; }
+        p { color: #666; font-size: 14px; margin-bottom: 20px; }
+        canvas { background-color: #fff; border: 2px solid #000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer; }
+        .controls { margin-top: 15px; }
+        button { background-color: #000; color: #fff; border: none; padding: 10px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin: 0 5px; transition: 0.2s; }
+        button:hover { background-color: #333; }
+    </style>
+</head>
+<body>
+    <h1>In-Silico Stem Cell Colony Simulator</h1>
+    <p>Click on the matrix grid to seed initial stem cells, then trigger the computational differentiation loop.</p>
+    <canvas id="gridCanvas" width="500" height="500"></canvas>
+    <div class="controls">
+        <button id="startBtn">Trigger Loop</button>
+        <button id="clearBtn">Wipe Matrix</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gridCanvas');
+        const ctx = canvas.getContext('2d');
+        const resolution = 10;
+        const COLS = canvas.width / resolution;
+        const ROWS = canvas.height / resolution;
+        let grid = Array(COLS).fill(null).map(() => Array(ROWS).fill(0));
+        let isRunning = false;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let c = 0; c < COLS; c++) {
+                for (let r = 0; r < ROWS; r++) {
+                    ctx.beginPath();
+                    ctx.rect(c * resolution, r * resolution, resolution, resolution);
+                    ctx.fillStyle = grid[c][r] ? '#000' : '#fff';
+                    ctx.fill();
+                    ctx.strokeStyle = '#eee';
+                    ctx.stroke();
+                }
+            }
+        }
+
+        canvas.addEventListener('click', e => {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.floor((e.clientX - rect.left) / resolution);
+            const y = Math.floor((e.clientY - rect.top) / resolution);
+            grid[x][y] = grid[x][y] ? 0 : 1;
+            draw();
+        });
+
+        function nextGen() {
+            if (!isRunning) return;
+            let next = grid.map(arr => [...arr]);
+            for (let c = 0; c < COLS; c++) {
+                for (let r = 0; r < ROWS; r++) {
+                    let neighbors = 0;
+                    for (let i = -1; i < 2; i++) {
+                        for (let j = -1; j < 2; j++) {
+                            if (i === 0 && j === 0) continue;
+                            const x = (c + i + COLS) % COLS;
+                            const y = (r + j + ROWS) % ROWS;
+                            neighbors += grid[x][y];
+                        }
+                    }
+                    if (grid[c][r] === 1 && (neighbors < 2 || neighbors > 3)) next[c][r] = 0;
+                    else if (grid[c][r] === 0 && neighbors === 3) next[c][r] = 1;
+                }
+            }
+            grid = next;
+            draw();
+            requestAnimationFrame(nextGen);
+        }
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            isRunning = !isRunning;
+            document.getElementById('startBtn').innerText = isRunning ? "Halt Loop" : "Trigger Loop";
+            if (isRunning) nextGen();
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            isRunning = false;
+            document.getElementById('startBtn').innerText = "Trigger Loop";
+            grid = Array(COLS).fill(null).map(() => Array(ROWS).fill(0));
+            draw();
+        });
+
+        draw();
+    </script>
+</body>
+</html>
