@@ -1,19 +1,49 @@
-# In-Silico Stem Cell Colony Simulator
+<div align="center">
 
-An interactive cellular automaton in the browser. Click the grid to seed a colony, then run the loop and watch it grow, stabilise or die out.
+<img src="assets/colony-sim.gif" alt="Pixel-art stem cell colony growing and differentiating" width="100%">
 
-**Live demo:** https://koushiki1122.github.io/stem-cell-colony-simulator/
+**[One-line description of what your simulator models.]**
 
-## How to use
+[![Live Demo](https://img.shields.io/badge/Try%20It-Live%20Demo-ff7eb6?style=for-the-badge&logo=netlify&logoColor=white)]([your live link])
 
-1. Click cells on the grid to seed the starting colony
-2. Press **Trigger Loop** to start the simulation
-3. Press **Wipe Matrix** to clear the grid and start again
+![HTML5](https://img.shields.io/badge/HTML5-e34f26?style=flat-square&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-f7df1e?style=flat-square&logo=javascript&logoColor=black)
 
-## How it works
+</div>
 
-The rules are Conway's Game of Life: a living cell survives with 2 or 3 neighbours, an empty cell with exactly 3 neighbours comes alive, and every other cell dies or stays empty. The stem cell wording is a playful metaphor for how simple local rules can produce complex colonies.
+---
 
-## Built with
+## About
 
-Plain HTML, CSS and JavaScript on a canvas. No dependencies.
+[2-3 sentences: what the simulation shows, and why you built it.]
+
+## What you can do
+
+- [e.g. Adjust the division rate and watch the colony grow]
+- [e.g. Change the proportion of cells that differentiate]
+- [e.g. Reset and compare runs]
+
+## The biology
+
+| Term | Meaning here |
+|---|---|
+| [Self-renewal] | [How it is modelled] |
+| [Differentiation] | [How it is modelled] |
+| [Parameter] | [What it controls] |
+
+## Run it
+
+Open `index.html` in your browser. No installation needed.
+
+## Roadmap
+
+- [ ] [Idea 1]
+- [ ] [Idea 2]
+
+---
+
+<div align="center">
+
+Made by [@KOUSHIKI1122](https://github.com/KOUSHIKI1122)
+
+</div>
