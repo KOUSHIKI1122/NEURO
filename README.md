@@ -1,7 +1,7 @@
 <div align="center">
 <img src="colony-sim.gif" alt="Pixel-art stem cell colony growing and differentiating" width="100%">
 
-**[One-line description of what your simulator models.]**
+
 
 [![Live Demo](https://img.shields.io/badge/Try%20It-Live%20Demo-ff7eb6?style=for-the-badge&logo=github&logoColor=white)](https://koushiki1122.github.io/stem-cell-colony-simulator/)
 
